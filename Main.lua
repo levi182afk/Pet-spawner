@@ -1,4 +1,4 @@
--- Sab RNG Pet Spawner - Combined & Optimized for Delta
+-- Sab RNG Pet Spawner - Direct Execution (No External Dependency)
 -- Developer: BestChildGame (Community)
 
 local Players = game:GetService("Players")
@@ -10,33 +10,26 @@ local CheatName = "Pet Spawner"
 local GameName = "Sab RNG"
 local Developer = "BestChildGame"
 
--- The actual script URL to fetch
-local ScriptURL = "https://raw.githubusercontent.com/DeltaScripts/SabRNG-PetSpawner/main/main.lua"
+-- YOUR RAW LINK HERE
+local MyCode = [[
+-- Paste your actual pet spawning logic here if you have it.
+-- If you don't have custom logic yet, this placeholder will just print success.
+print("[" .. CheatName .. "] Logic loaded from local scope.")
+]]
 
 print("[" .. CheatName .. "] Initializing...")
 
--- Load and execute the script with error handling
+-- Execute the code directly
 pcall(function()
-    local success, result = pcall(game.HttpGet, game, ScriptURL)
-    
-    if success then
-        -- If HttpGet returns a string, loadstring it
-        if type(result) == "string" then
-            local func, err = loadstring(result)
-            if func then
-                local execSuccess, execErr = pcall(func)
-                if not execSuccess then
-                    warn("[Cheat] Failed to execute loaded script:", execErr)
-                else
-                    print("[" .. CheatName .. "] Successfully executed in " .. GameName .. " by " .. Developer .. ".")
-                end
-            else
-                warn("[Cheat] LoadString Error:", err)
-            end
+    local func, err = loadstring(MyCode)
+    if func then
+        local execSuccess, execErr = pcall(func)
+        if not execSuccess then
+            warn("[Cheat] Error executing logic:", execErr)
         else
-            warn("[Cheat] HttpGet did not return a string.")
+            print("[" .. CheatName .. "] Successfully executed in " .. GameName .. " by " .. Developer .. ".")
         end
     else
-        warn("[Cheat] Failed to fetch script from URL:", result)
+        warn("[Cheat] LoadString Error:", err)
     end
 end)
